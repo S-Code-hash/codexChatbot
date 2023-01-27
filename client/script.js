@@ -1,5 +1,5 @@
 import bot from './assets/bot.svg';
-import user from './assets/user.svg';
+import user from './assets/usergirl.svg';
 
 const form = document.querySelector('form');
 const chatContainer = document.querySelector('#chat_container');
@@ -25,6 +25,7 @@ function typeText(element, text) {
     if(index < text.length) {
       element.innerHTML += text.charAt(index);
       index++;
+      hljs.highlightBlock(element);
     } else {
       clearInterval(interval);
     }
@@ -95,8 +96,10 @@ const handleSubmit = async (e) => {
   if(response.ok) {
     const data = await response.json();
     const parseData = data.bot.trim();
+    const codes = parseData;
+    console.log(codes);
+    typeText(messageDiv, codes);
 
-    typeText(messageDiv, parseData);
   } else {
     const err = await response.text();
 
